@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block body %}
+ 
+
+<div class="block1">
+	<h1>Hello {{p1.name}}!</h1> 
+	<script>
+		var suitTurnedDown = "{{suitTurnedDown}}";
+		var suitArray = ["s","h","d","c"];
+		var suitNameArray = ["Spades","Hearts","Diamonds","Clubs"];
+		var suitNameTurnedDown = "";
+		var index = suitArray.indexOf(suitTurnedDown);
+		if (index > -1) 
+		{
+			suitNameTurnedDown = suitNameArray[index];
+			suitArray.splice(index, 1);
+			suitNameArray.splice(index, 1);
+		}
+		console.log(suitArray);
+
+
+	</script>
+	<h2>{{message}}</h2>
+	<h2 id="instruction">Pick a suit to be trump or pass</h2>
+	<button id="button0" onclick="table.seats[0].chooseTrump(suitArray[0])">button0</button>
+	<button id="button1" onclick="table.seats[0].chooseTrump(suitArray[1])">button1</button>
+	<button id="button2" onclick="table.seats[0].chooseTrump(suitArray[2])">button2</button>
+	<button onclick="table.seats[0].pass2()">Pass</button>
+	<script>
+		$("instruction").innerHTML = suitNameTurnedDown + " turned down, select another suit to be trump or pass";
+		document.getElementById("button0").innerHTML = suitNameArray[0];
+		document.getElementById("button1").innerHTML = suitNameArray[1];
+		document.getElementById("button2").innerHTML = suitNameArray[2];
+	</script>
+
+</div>
+{% endblock %}

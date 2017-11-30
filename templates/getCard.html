@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+ 
+
+<div class="block1">
+	<h1>Hello {{p1.name}}!</h1> 
+	<script>
+		legalArray = {{legalArray}};
+		console.log(legalArray);
+		mailTo = "{{mailTo}}";
+		table.seats[0].pickCardToPlay(legalArray, mailTo);
+
+
+	</script>
+	<h2>{{message}}</h2>
+	<h2>Pick a legal card</h2>
+</div>
+{% endblock %}

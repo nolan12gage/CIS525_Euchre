@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+	<head>
+    	<title>Website</title>
+		<script src="{{url_for('static', filename='js/tableCreateAndStyle.js')}}"></script>
+		<script src="{{url_for('static', filename='js/oop.js')}}"></script>
+		<script src="{{url_for('static', filename='js/interfaceFunctions.js')}}"></script>
+		<link rel="stylesheet" type="text/css" href="static/styles/euchrestyle.css">
+	</head>
+	<body>
+	<div id="game_table"></div>
+	<script>
+		createTable();
+		styleTable();
+
+		var nameArray = ["adam","becky","carol","don"];
+		var isHumanArray = [true,true,true,true];
+		var dealerIndex = 0; //south
+
+		var p1handsize = parseInt('{{p1.handSize}}');
+		if(p1handsize == 5) p1handArray = ['{{p1.hand[0]}}','{{p1.hand[1]}}','{{p1.hand[2]}}','{{p1.hand[3]}}','{{p1.hand[4]}}'];
+		else if(p1handsize == 4) p1handArray = ['{{p1.hand[0]}}','{{p1.hand[1]}}','{{p1.hand[2]}}','{{p1.hand[3]}}'];
+		else if(p1handsize == 3) p1handArray = ['{{p1.hand[0]}}','{{p1.hand[1]}}','{{p1.hand[2]}}'];
+		else if(p1handsize == 2) p1handArray = ['{{p1.hand[0]}}','{{p1.hand[1]}}'];
+		else if(p1handsize == 1) p1handArray = ['{{p1.hand[0]}}'];
+		else p1handArray = [];
+
+		var p2handsize = parseInt('{{p2.handSize}}');
+		if(p2handsize == 5) p2handArray = ['{{p2.hand[0]}}','{{p2.hand[1]}}','{{p2.hand[2]}}','{{p2.hand[3]}}','{{p2.hand[4]}}'];
+		else if(p2handsize == 4) p2handArray = ['{{p2.hand[0]}}','{{p2.hand[1]}}','{{p2.hand[2]}}','{{p2.hand[3]}}'];
+		else if(p2handsize == 3) p2handArray = ['{{p2.hand[0]}}','{{p2.hand[1]}}','{{p2.hand[2]}}'];
+		else if(p2handsize == 2) p2handArray = ['{{p2.hand[0]}}','{{p2.hand[1]}}'];
+		else if(p2handsize == 1) p2handArray = ['{{p2.hand[0]}}'];
+		else p2handArray = [];
+
+		var p3handsize = parseInt('{{p3.handSize}}');
+		if(p3handsize == 5) p3handArray = ['{{p3.hand[0]}}','{{p3.hand[1]}}','{{p3.hand[2]}}','{{p3.hand[3]}}','{{p3.hand[4]}}'];
+		else if(p3handsize == 4) p3handArray = ['{{p3.hand[0]}}','{{p3.hand[1]}}','{{p3.hand[2]}}','{{p3.hand[3]}}'];
+		else if(p3handsize == 3) p3handArray = ['{{p3.hand[0]}}','{{p3.hand[1]}}','{{p3.hand[2]}}'];
+		else if(p3handsize == 2) p3handArray = ['{{p3.hand[0]}}','{{p3.hand[1]}}'];
+		else if(p3handsize == 1) p3handArray = ['{{p3.hand[0]}}'];
+		else p3handArray = [];
+
+		var p4handsize = parseInt('{{p4.handSize}}');
+		if(p4handsize == 5) p4handArray = ['{{p4.hand[0]}}','{{p4.hand[1]}}','{{p4.hand[2]}}','{{p4.hand[3]}}','{{p4.hand[4]}}'];
+		else if(p4handsize == 4) p4handArray = ['{{p4.hand[0]}}','{{p4.hand[1]}}','{{p4.hand[2]}}','{{p4.hand[3]}}'];
+		else if(p4handsize == 3) p4handArray = ['{{p4.hand[0]}}','{{p4.hand[1]}}','{{p4.hand[2]}}'];
+		else if(p4handsize == 2) p4handArray = ['{{p4.hand[0]}}','{{p4.hand[1]}}'];
+		else if(p4handsize == 1) p4handArray = ['{{p4.hand[0]}}'];
+		else p4handArray = [];
+
+		handArrays = [p1handArray, p2handArray, p3handArray, p4handArray];
+		console.log(handArrays);
+
+		p1zoneArray = "{{p1zoneArray}}";
+		p2zoneArray = "{{p2zoneArray}}";
+		p3zoneArray = "{{p3zoneArray}}";
+		p4zoneArray = "{{p4zoneArray}}";
+		centerZoneArray = "{{table.zones[4][0]}}";
+
+		zoneArrays = [p1zoneArray, p2zoneArray, p3zoneArray, p4zoneArray, centerZoneArray];
+		console.log(zoneArrays);
+		
+		table = new Table(nameArray, isHumanArray, dealerIndex, handArrays, zoneArrays);
+		console.log("onload");
+		
+	</script>
+	{% block body %}
+
+	{% endblock %}
+	<br>
+	<a href="/">home</a>
+	<a href="/get">getCard</a>
+	<a href="/pick1">orderUpOrPass</a>
+	<a href="/pick2">chooseOrPass</a>
+	<form action="/result1" method="post">
+		<button name="cardName" type="submit" value="c15">Example result1</button>
+	</form>
+	<form action="/result2" method="post">
+		<button name="cardName" type="submit" value="c15">Example result2</button>
+	</form>
+
+	</body>
+</html>
