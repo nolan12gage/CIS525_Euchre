@@ -5,7 +5,7 @@ import re
 def validateID(id):
   return id
 
-def validatePassword(password)
+def validatePassword(password):
   return password
   
 def validateAge(age):
