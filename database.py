@@ -19,3 +19,6 @@ def validateLocation(location):
 
 def validateForm(form):
   return True
+
+def testQuery(test):
+	return coolArg
