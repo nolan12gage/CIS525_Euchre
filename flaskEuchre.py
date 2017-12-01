@@ -18,11 +18,6 @@ p3 = EuchrePlayerAI("p3")
 p4 = EuchrePlayerAI("p4")
 table = EuchreTable(p1, p2, p3, p4)
 
-host = 'localhost'
-database = 'euchre_users'
-user = 'root'
-password = 'mysql'
-
 deck.shuffle()
 table.dealer.euchreDeal(deck,table)
 
@@ -57,9 +52,11 @@ def createAccount():
   
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-  # Validate the form if this was a POST request and get rid of the 
+  # Only do the following on a POST request
   if request.method == 'POST':
+    # If the form is valid, then create the user in the db
     if validateForm(request.form):
+      createUser(request.form)      
       print('hello', file=sys.stderr)
       
   return render_template('loginForm.html')
