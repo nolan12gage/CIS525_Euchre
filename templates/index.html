@@ -1,15 +1,40 @@
-{% extends "layout.html" %}
-{% block body %}
- 
+<!doctype html>
 
-<div class="block1">
-	<h1>Hello {{table.seats[0].name}}!</h1> 
-	<script>
+<html lang="en">
+	
+<head>
+	
+	<title>Euchre</title>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="../static/images/Euchre.png">
+    <link rel="stylesheet" href="../static/styles/main.css">
+    
+</head>
+	
+<body>
+	
+	<header>
+		<img src="../static/images/Its-Euchre-time.jpg" alt="Euchre Game" width="1000">
 
+    </header>
+   
+    <nav id="menu">
+    	<ul>
+    		<li><a href="login">Login</a></li>
+    		<li><a href="rules">Rules</a></li>
+            <li><a href="about">About</a></li>
+    		<li><a href="score">Score</a></li>        
+    	</ul>
+    </nav>
 
-	</script>
-	<h2>{{message}}</h2>
-	<button onclick="startGame()">Start Game</button>
+	<main>
+		
+	</main>
+    
+<footer>
+      &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
+</footer>
 
-</div>
-{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Euchre Login</title>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="../static/images/Euchre.png">
+    <link rel="stylesheet" href="../static/styles/main.css">
+    
+</head>
+<body style="width: 30%">
+<h1>sign in to play</h1>
+
+<form method="post" action="/start"> <!--If you click the "Submit" button, the form-data will be sent to a page called play
+	 -->
+  User ID:<br>
+  <input type="text" name="userID" value="" >
+  <br><br>
+  Password:<br>
+  <input type="text" name="password" value="" required>
+  <br><br>
+  <button type="submit" >Login</button>
+
+  <button onclick="goBack()">Go Back</button>
+  <script>
+	function goBack() {
+	    window.history.back();
+	}
+  </script> 
+
+  <br><br>
+  <input type="checkbox" checked="checked"> Remember me
+</form> 
+
+<p>Enjoy!</p>
+
+</body>
+<footer>
+      &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
+</footer>
+</html>
