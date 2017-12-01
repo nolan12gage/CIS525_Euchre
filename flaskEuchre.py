@@ -69,39 +69,44 @@ def start():
   # We need to add a check in here once sessions and MySQL is implemented to make sure that the user is logged
   # in before proceeding. If they are not logged in, then they need to be redirected back to the login page
 	message = "start"
-	return render_template('start.html', p1=p1, p2=p2, p3=p3, p4=p4, p1zoneArray=p1zoneArray, p2zoneArray=p2zoneArray, p3zoneArray=p3zoneArray, p4zoneArray=p4zoneArray, message=message, table=table)
+	mailTo = ''
+	return render_template('start.html', table=table, mailTo=mailTo, message=message)
   
 @app.route('/get')
 def getCard():
 	message = ""
 	legalArray = [1,0,1,0,1]
 	mailTo = "/result2"
-	return render_template('getCard.html', p1=p1, p2=p2, p3=p3, p4=p4, p1zoneArray=p1zoneArray, p2zoneArray=p2zoneArray, p3zoneArray=p3zoneArray, p4zoneArray=p4zoneArray, message=message, table=table, legalArray=legalArray, mailTo=mailTo)
+	return render_template('getCard.html', table=table, mailTo=mailTo, message=message, legalArray=legalArray)
 
 @app.route('/pick1')
 def orderUpOrPass():
 	message = ""
-	return render_template('pick1.html', p1=p1, p2=p2, p3=p3, p4=p4, p1zoneArray=p1zoneArray, p2zoneArray=p2zoneArray, p3zoneArray=p3zoneArray, p4zoneArray=p4zoneArray, message=message, table=table)
+	mailTo = ''
+	return render_template('pick1.html', table=table, mailTo=mailTo, message=message)
 
 @app.route('/pick2')
 def chooseOrPass():
 	message = ""
 	suitTurnedDown = "d"
-	return render_template('pick2.html', p1=p1, p2=p2, p3=p3, p4=p4, p1zoneArray=p1zoneArray, p2zoneArray=p2zoneArray, p3zoneArray=p3zoneArray, p4zoneArray=p4zoneArray, message=message, table=table)
+	mailTo = ''
+	return render_template('pick2.html', table=table, mailTo=mailTo, message=message, suitTurnedDown=suitTurnedDown)
 
 @app.route('/result1', methods=['POST'])
 def displayChoice1():
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
 	message = "Result 1: You played " + rawMessage[2] + rawMessage[6] + rawMessage[10]
-	return render_template('start.html', p1=p1, p2=p2, p3=p3, p4=p4, p1zoneArray=p1zoneArray, p2zoneArray=p2zoneArray, p3zoneArray=p3zoneArray, p4zoneArray=p4zoneArray, message=message, table=table)
+	mailTo = ''
+	return render_template('start.html', table=table, mailTo=mailTo, message=message)
 
 @app.route('/result2', methods=['POST'])
 def displayChoice2():
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
 	message = "Result 2: You played " + rawMessage[2] + rawMessage[6] + rawMessage[10]
-	return render_template('start.html', p1=p1, p2=p2, p3=p3, p4=p4, p1zoneArray=p1zoneArray, p2zoneArray=p2zoneArray, p3zoneArray=p3zoneArray, p4zoneArray=p4zoneArray, message=message, table=table)
+	mailTo = ''
+	return render_template('start.html', table=table, mailTo=mailTo, message=message)
 
 @app.route('/deal')
 def deal():
