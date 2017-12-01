@@ -19,3 +19,8 @@ def validateLocation(location):
 
 def validateForm(form):
   return True
+  
+def createQuery():
+  i = 4 
+  j = 6
+  return i+j
