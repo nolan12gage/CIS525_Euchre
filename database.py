@@ -22,3 +22,4 @@ def validateForm(form):
 
 def testQuery(test):
 	return coolArg
+
