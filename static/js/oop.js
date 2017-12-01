@@ -103,106 +103,106 @@ Player.prototype = {
 			}
 		}		
 	},
-    orderUpOrPass:function ()  {
-		centerCard = table.zones[4].card;
+  //   orderUpOrPass:function ()  {
+		// centerCard = table.zones[4].card;
 		
-		if(this.isHuman)
-		{
-			var positionIndex = this.positionIndex;
-			$(table.coms[this.positionIndex].id).innerHTML = "<button id=\"btn1\">Order Up</button><button id=\"btn2\">pass</button>";
-			$("btn1").onclick=function() { table.seats[table.dealerIndex].orderUp(); }
-			$("btn2").onclick=function() { table.seats[positionIndex].pass1(); }
-		}
-		else
-		{
-			var trumpCount = this.getNumberOfTrump(centerCard.suit);
-			if(this.positionIndex == table.dealerIndex) trumpCount++;
+		// if(this.isHuman)
+		// {
+		// 	var positionIndex = this.positionIndex;
+		// 	$(table.coms[this.positionIndex].id).innerHTML = "<button id=\"btn1\">Order Up</button><button id=\"btn2\">pass</button>";
+		// 	$("btn1").onclick=function() { table.seats[table.dealerIndex].orderUp(); }
+		// 	$("btn2").onclick=function() { table.seats[positionIndex].pass1(); }
+		// }
+		// else
+		// {
+		// 	var trumpCount = this.getNumberOfTrump(centerCard.suit);
+		// 	if(this.positionIndex == table.dealerIndex) trumpCount++;
 			
-			console.log(this.id + " player has " + trumpCount + " trump");
+		// 	console.log(this.id + " player has " + trumpCount + " trump");
 
-			if(trumpCount >= 5) table.seats[table.dealerIndex].orderUp();
-			else table.seats[this.positionIndex].pass1();
-		}
-    },
-	discardSixthCard:function(cardIndex){
-		this.discard(cardIndex);
+		// 	if(trumpCount >= 5) table.seats[table.dealerIndex].orderUp();
+		// 	else table.seats[this.positionIndex].pass1();
+		// }
+  //   },
+	// discardSixthCard:function(cardIndex){
+	// 	this.discard(cardIndex);
 
-		if(this.isHuman) this.clearOnClicks();
-		table.seats[(table.dealerIndex + 1)%4].chooseCardToPlay();
-	},
-	assignTrump:function(trumpSuit) {
-		table.clearComSpaces();
+	// 	if(this.isHuman) this.clearOnClicks();
+	// 	table.seats[(table.dealerIndex + 1)%4].chooseCardToPlay();
+	// },
+	// assignTrump:function(trumpSuit) {
+	// 	table.clearComSpaces();
 
-		if(this.isHuman) this.clearOnClicks();
+	// 	if(this.isHuman) this.clearOnClicks();
 
-		table.trump = trumpSuit;
-		this.choseTrump = true;
-		console.log(table.trump + " assigned as trump");
-		table.seats[table.leaderIndex].chooseCardToPlay();
-	},
-	getNumberOfTrump:function (suit)  {
-        var trumpCount = 0;
-		for(var i = 0; i < this.hand.length; i++)
-		{			
-			if(this.hand[i].suit == suit || this.hand[i].name == this.getLeftBauer(suit).name)
-			{
-				trumpCount += 1;
-			}
-		}
-		return trumpCount;
-    },
-	getLeftBauer:function (suit) {
-		var suitlist = ["s","d","c","h"];
-		var index = 0;
-		while(suitlist[index] != suit && index < 5) index++;
-		var leftIndex = (index + 2)%4;
-		leftBauerName = suitlist[leftIndex] + "11";
-		leftBauer = new Card(leftBauerName);
-		return leftBauer;
-	},
-	chooseCardToPlay:function(){
-		if(this.positionIndex != table.leaderIndex) console.log("led card: " + table.zones[table.leaderIndex].card.name);
-		else console.log("player " + this.positionIndex + " leading");
+	// 	table.trump = trumpSuit;
+	// 	this.choseTrump = true;
+	// 	console.log(table.trump + " assigned as trump");
+	// 	table.seats[table.leaderIndex].chooseCardToPlay();
+	// },
+	// getNumberOfTrump:function (suit)  {
+ //        var trumpCount = 0;
+	// 	for(var i = 0; i < this.hand.length; i++)
+	// 	{			
+	// 		if(this.hand[i].suit == suit || this.hand[i].name == this.getLeftBauer(suit).name)
+	// 		{
+	// 			trumpCount += 1;
+	// 		}
+	// 	}
+	// 	return trumpCount;
+ //    },
+	// getLeftBauer:function (suit) {
+	// 	var suitlist = ["s","d","c","h"];
+	// 	var index = 0;
+	// 	while(suitlist[index] != suit && index < 5) index++;
+	// 	var leftIndex = (index + 2)%4;
+	// 	leftBauerName = suitlist[leftIndex] + "11";
+	// 	leftBauer = new Card(leftBauerName);
+	// 	return leftBauer;
+	// },
+	// chooseCardToPlay:function(){
+	// 	if(this.positionIndex != table.leaderIndex) console.log("led card: " + table.zones[table.leaderIndex].card.name);
+	// 	else console.log("player " + this.positionIndex + " leading");
 
-		var ledSuit = "";
-		var leader = true;
-		if(this.positionIndex != table.leaderIndex) 
-		{
-			ledSuit = table.zones[table.leaderIndex].card.suit;
-			leader = false;
-		}
-		if(this.isHuman)
-		{
-			var position = this.positionIndex;
-			var cardImgArray = $(this.id).getElementsByTagName("img");
+	// 	var ledSuit = "";
+	// 	var leader = true;
+	// 	if(this.positionIndex != table.leaderIndex) 
+	// 	{
+	// 		ledSuit = table.zones[table.leaderIndex].card.suit;
+	// 		leader = false;
+	// 	}
+	// 	if(this.isHuman)
+	// 	{
+	// 		var position = this.positionIndex;
+	// 		var cardImgArray = $(this.id).getElementsByTagName("img");
 			
-			if(this.hand.length > 0 && (leader || !this.handContainsSuit(ledSuit) || this.hand[0].suit == ledSuit)) cardImgArray[0].onclick = function() {table.seats[position].playCard(0);}
-			if(this.hand.length > 1 && (leader || !this.handContainsSuit(ledSuit) || this.hand[1].suit == ledSuit)) cardImgArray[1].onclick = function() {table.seats[position].playCard(1);}
-			if(this.hand.length > 2 && (leader || !this.handContainsSuit(ledSuit) || this.hand[2].suit == ledSuit)) cardImgArray[2].onclick = function() {table.seats[position].playCard(2);}
-			if(this.hand.length > 3 && (leader || !this.handContainsSuit(ledSuit) || this.hand[3].suit == ledSuit)) cardImgArray[3].onclick = function() {table.seats[position].playCard(3);}
-			if(this.hand.length > 4 && (leader || !this.handContainsSuit(ledSuit) || this.hand[4].suit == ledSuit)) cardImgArray[4].onclick = function() {table.seats[position].playCard(4);}
-		}
-		else
-		{
-			if(!leader && this.handContainsSuit(ledSuit))
-			{
-				for(var i = 0; i < this.hand.length; i++)
-				{
+	// 		if(this.hand.length > 0 && (leader || !this.handContainsSuit(ledSuit) || this.hand[0].suit == ledSuit)) cardImgArray[0].onclick = function() {table.seats[position].playCard(0);}
+	// 		if(this.hand.length > 1 && (leader || !this.handContainsSuit(ledSuit) || this.hand[1].suit == ledSuit)) cardImgArray[1].onclick = function() {table.seats[position].playCard(1);}
+	// 		if(this.hand.length > 2 && (leader || !this.handContainsSuit(ledSuit) || this.hand[2].suit == ledSuit)) cardImgArray[2].onclick = function() {table.seats[position].playCard(2);}
+	// 		if(this.hand.length > 3 && (leader || !this.handContainsSuit(ledSuit) || this.hand[3].suit == ledSuit)) cardImgArray[3].onclick = function() {table.seats[position].playCard(3);}
+	// 		if(this.hand.length > 4 && (leader || !this.handContainsSuit(ledSuit) || this.hand[4].suit == ledSuit)) cardImgArray[4].onclick = function() {table.seats[position].playCard(4);}
+	// 	}
+	// 	else
+	// 	{
+	// 		if(!leader && this.handContainsSuit(ledSuit))
+	// 		{
+	// 			for(var i = 0; i < this.hand.length; i++)
+	// 			{
 					
-					if(this.hand[i].suit == ledSuit) 
-					{
-						console.log("playCard 1");
-						this.playCard(i);
-					}
-				}
-			}
-			else 
-			{
-				console.log("playCard 2");
-				this.playCard(0); //dumb AI always plays first card
-			}
-		}
-	},
+	// 				if(this.hand[i].suit == ledSuit) 
+	// 				{
+	// 					console.log("playCard 1");
+	// 					this.playCard(i);
+	// 				}
+	// 			}
+	// 		}
+	// 		else 
+	// 		{
+	// 			console.log("playCard 2");
+	// 			this.playCard(0); //dumb AI always plays first card
+	// 		}
+	// 	}
+	// },
 	clearOnClicks:function() {
 		var cardImgArray = $(this.id).getElementsByTagName("img");
 		cardImgArray[0].onclick = "";
@@ -233,14 +233,17 @@ Player.prototype = {
 		this.clearOnClicks();
 		post(mailTo, cardName);
 	},
-	chooseTrump:function(suit){
+	chooseTrump:function(suit, mailTo){
 		console.log(suit + " chosen as trump");
+		post(mailTo, suit + " chosen");
 	},
-	orderUp:function (){
+	orderUp:function (mailTo){
 		console.log("Order Up");
+		post(mailTo, "Ordering Up");
 	},
-	pass1:function (){
+	pass1:function (mailTo){
 		console.log("pass1");
+		post(mailTo, "Passing1");
 	},
 	pass2:function (){
 		console.log("pass2");
@@ -563,9 +566,10 @@ var createDeck = function()
 	return deck;
 };
 
-var startGame = function()
+var startGame = function(mailTo)
 {
 	console.log("Start Game!");
+	post(mailTo, "start");
 }
 
 

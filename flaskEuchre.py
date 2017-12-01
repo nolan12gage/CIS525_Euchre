@@ -12,28 +12,15 @@ import mysql.connector
 app = Flask(__name__)
 
 deck = EuchreDeck()
-p1 = EuchrePlayer("p1")
+p0 = EuchrePlayer("p0")
+p1 = EuchrePlayerAI("p1")
 p2 = EuchrePlayerAI("p2")
 p3 = EuchrePlayerAI("p3")
-p4 = EuchrePlayerAI("p4")
-table = EuchreTable(p1, p2, p3, p4)
-
-host = 'localhost'
-database = 'euchre_users'
-user = 'root'
-password = 'mysql'
+table = EuchreTable(p0, p1, p2, p3)
 
 deck.shuffle()
 table.dealer.euchreDeal(deck,table)
 
-p1zoneArray = ""
-p2zoneArray = ""
-p3zoneArray = ""
-p4zoneArray = ""
-
-#table.reset(deck)
-#deck.shuffle()
-#table.dealer.euchreDeal(deck,table)
 
 @app.route('/')
 def home():
@@ -57,9 +44,11 @@ def createAccount():
   
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-  # Validate the form if this was a POST request and get rid of the 
+  # Only do the following on a POST request
   if request.method == 'POST':
+    # If the form is valid, then create the user in the db
     if validateForm(request.form):
+      createUser(request.form)      
       print('hello', file=sys.stderr)
       
   return render_template('loginForm.html')
@@ -69,30 +58,30 @@ def start():
   # We need to add a check in here once sessions and MySQL is implemented to make sure that the user is logged
   # in before proceeding. If they are not logged in, then they need to be redirected back to the login page
 	message = "start"
-	mailTo = ''
+	mailTo = '/pick1'
 	return render_template('start.html', table=table, mailTo=mailTo, message=message)
   
-@app.route('/get')
+@app.route('/get', methods=['GET', 'POST'])
 def getCard():
 	message = ""
 	legalArray = [1,0,1,0,1]
 	mailTo = "/result2"
 	return render_template('getCard.html', table=table, mailTo=mailTo, message=message, legalArray=legalArray)
 
-@app.route('/pick1')
+@app.route('/pick1', methods=['GET', 'POST'])
 def orderUpOrPass():
 	message = ""
-	mailTo = ''
+	mailTo = '/result1'
 	return render_template('pick1.html', table=table, mailTo=mailTo, message=message)
 
-@app.route('/pick2')
+@app.route('/pick2', methods=['GET', 'POST'])
 def chooseOrPass():
 	message = ""
 	suitTurnedDown = "d"
-	mailTo = ''
+	mailTo = '/result1'
 	return render_template('pick2.html', table=table, mailTo=mailTo, message=message, suitTurnedDown=suitTurnedDown)
 
-@app.route('/result1', methods=['POST'])
+@app.route('/result1', methods=['GET', 'POST'])
 def displayChoice1():
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
@@ -100,7 +89,7 @@ def displayChoice1():
 	mailTo = ''
 	return render_template('start.html', table=table, mailTo=mailTo, message=message)
 
-@app.route('/result2', methods=['POST'])
+@app.route('/result2', methods=['GET', 'POST'])
 def displayChoice2():
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
@@ -108,7 +97,7 @@ def displayChoice2():
 	mailTo = ''
 	return render_template('start.html', table=table, mailTo=mailTo, message=message)
 
-@app.route('/deal')
+@app.route('/deal', methods=['GET', 'POST'])
 def deal():
 	# table.assignPoints()
 	# table.reset(deck)
