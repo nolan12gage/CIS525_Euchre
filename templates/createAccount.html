@@ -10,32 +10,49 @@
 <body style="width: 30%">
 <h1>Create an Account</h1>
 
-<form method="post" action="/login"> <!--If you click the "Submit" button, the form-data will be sent to a page called play
-	 -->
+<form method="post">
   User ID:<br>
   <input type="text" name="userID" value="" >
+  {% if idErr %}
+  <span class ="formError"> *{{idErr}}</span>
+  {% endif %}
   <br><br>
   Email Address:<br>
   <input type="text" name="email" value="" >
+  {% if emailErr %}
+  <span class ="formError"> *{{emailErr}}</span>  
+  {% endif %}
   <br><br>
   Password:<br>
   <input type="text" name="password" value="" >
+  {% if pwErr %}
+  <span class ="formError"> *{{pwErr}}</span>  
+  {% endif %}
   <br><br>
   Confirm Password:<br>
   <input type="text" name="confirmPassword" value="" >
+  {% if confErr %}
+  <span class ="formError"> *{{confErr}}</span>  
+  {% endif %}
   <br><br>
   Age:<br>
   <input type="number" name="age" value="" >
+  {% if ageErr %}
+  <span class ="formError"> *{{ageErr}}</span>  
+  {% endif %}  
   <br><br>
   Country:<br>
   <input type="text" name="country" value="" >
+  {% if locErr %}
+  <span class ="formError"> *{{locErr}}</span>  
+  {% endif %}
   <br><br>
   <button type="submit" >Create Account</button>
 
   <button onclick="goBack()">Go Back</button>
   <script>
 	function goBack() {
-	    window.history.back();
+	    window.history.back(); //this doesn't work right now
 	}
   </script> 
 

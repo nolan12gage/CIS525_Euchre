@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Leaderboard</title>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="../static/images/Euchre.png">
+    <link rel="stylesheet" href="../static/styles/main.css">
+    
+</head>
+<body style="width: 30%">
+<h1>Leaderboard</h1>
+<br>
+<table id="leaderboard">
+  <tr>
+    <th>Username</th>
+    <th>Career Wins</th>
+    <th>Age</th>
+    <th>Location</th>
+    <th>Last Login</th>
+  </tr>
+  {% for ldr in leaders %}
+  <tr>
+    <td>{{ldr[0]}}</td>
+    <td>{{ldr[1]}}</td>
+    <td>{{ldr[2]}}</td>
+    <td>{{ldr[3]}}</td>
+    <td>{{ldr[4]}}</td>
+  </tr>
+  {% endfor %}
+</table
+</body>
+<footer>
+      &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
+</footer>
+</html>

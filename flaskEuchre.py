@@ -5,7 +5,7 @@ from EuchrePlayerAI import EuchrePlayerAI
 from EuchreTable import EuchreTable
 from database import *
 
-from flask import Flask, flash, redirect, render_template, request, session, abort
+from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
 import os, re, sys
 import mysql.connector
  
@@ -21,14 +21,13 @@ table = EuchreTable(p0, p1, p2, p3)
 deck.shuffle()
 table.dealer.euchreDeal(deck,table)
 
-
 @app.route('/')
 def home():
   return render_template('index.html')
 
 @app.route('/about')
 def about():
-	return render_template('about.html')  
+  return render_template('about.html')  
 
 @app.route('/rules')
 def rules():
@@ -38,28 +37,59 @@ def rules():
 def highScores():
   return render_template('score.html')
   
-@app.route('/join')
+@app.route('/leaderboard')
+def leaderBoard():
+  leaders = getLeaders()
+  print(len(leaders), file=sys.stderr)
+  return render_template('leaderboard.html', leaders=leaders)
+  
+  
+@app.route('/join', methods=['GET', 'POST'])
 def createAccount():  
-  return render_template('createAccount.html')
+  idErr = pwErr = confErr = emailErr = locErr = ageErr = ''
+  if request.method == 'POST':
+    #print('here2', file=sys.stderr)
+    idErr = validateID(request.form['userID'])
+    pwErr = validatePassword(request.form['password'])
+    confErr = validateConf(request.form['password'], request.form['confirmPassword'])
+    emailErr = validateEmail(request.form['email'])
+    locErr = validateLocation(request.form['country'])
+    ageErr = validateAge(request.form['age'])
+    if not idErr and not pwErr and not confErr and not emailErr and not locErr and not ageErr:
+      createUser(request.form)
+      return redirect(url_for('.login'))
+
+      
+  return render_template('createAccount.html', idErr=idErr, pwErr=pwErr, confErr=confErr, 
+                         emailErr=emailErr, locErr=locErr, ageErr=ageErr)
   
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-  # Only do the following on a POST request
+  loginErr = idErr = pwErr = ''
   if request.method == 'POST':
-    # If the form is valid, then create the user in the db
-    if validateForm(request.form):
-      createUser(request.form)      
-      print('hello', file=sys.stderr)
+    loginErr = verifyCredentials(request.form)
+    if not loginErr:
+      session['username'] = request.form['userID']
+      return redirect(url_for('.home'))
       
-  return render_template('loginForm.html')
-  
+  return render_template('loginForm.html', loginErr=loginErr)
+
+@app.route('/logout')
+def logout():
+    # remove the username from the session if it's there
+    session.pop('username', None)
+    return redirect(url_for('.home'))
+    
 @app.route('/start', methods=['GET', 'POST'])
 def start():
   # We need to add a check in here once sessions and MySQL is implemented to make sure that the user is logged
   # in before proceeding. If they are not logged in, then they need to be redirected back to the login page
-	message = "start"
-	mailTo = '/pick1'
-	return render_template('start.html', table=table, mailTo=mailTo, message=message)
+  message = "start"
+  mailTo = '/pick1'
+  if 'username' in session:
+    return render_template('start.html', table=table, mailTo=mailTo, message=message)
+  else:
+    return redirect(url_for('.login'))
   
 @app.route('/get', methods=['GET', 'POST'])
 def getCard():
