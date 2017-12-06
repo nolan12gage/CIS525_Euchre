@@ -2,6 +2,8 @@
 from EuchreDeck import EuchreDeck
 from EuchrePlayer import EuchrePlayer
 from EuchrePlayerAI import EuchrePlayerAI
+from EuchrePlayerWeb import EuchrePlayerWeb
+from EuchrePlayerWebAI import EuchrePlayerWebAI
 from EuchreTable import EuchreTable
 from database import *
 
@@ -12,18 +14,22 @@ import mysql.connector
 app = Flask(__name__)
 
 deck = EuchreDeck()
-p0 = EuchrePlayer("p0")
-p1 = EuchrePlayerAI("p1")
-p2 = EuchrePlayerAI("p2")
-p3 = EuchrePlayerAI("p3")
+p0 = EuchrePlayerWeb("Corwin")
+p1 = EuchrePlayerWebAI("Adam")
+p2 = EuchrePlayerWebAI("Becky")
+p3 = EuchrePlayerWebAI("Ethan")
 table = EuchreTable(p0, p1, p2, p3)
 
-deck.shuffle()
-table.dealer.euchreDeal(deck,table)
 
+<<<<<<< Updated upstream
 @app.route('/')
 def home():
   return render_template('index.html')
+=======
+# @app.route('/')
+# def home():
+# 	return render_template('index.html')
+>>>>>>> Stashed changes
 
 @app.route('/about')
 def about():
@@ -31,11 +37,11 @@ def about():
 
 @app.route('/rules')
 def rules():
-  return render_template('rules.html')
+	return render_template('rules.html')
 
 @app.route('/score')
 def highScores():
-  return render_template('score.html')
+	return render_template('score.html')
   
 @app.route('/leaderboard')
 def leaderBoard():
@@ -46,6 +52,7 @@ def leaderBoard():
   
 @app.route('/join', methods=['GET', 'POST'])
 def createAccount():  
+<<<<<<< Updated upstream
   idErr = pwErr = confErr = emailErr = locErr = ageErr = ''
   if request.method == 'POST':
     #print('here2', file=sys.stderr)
@@ -97,48 +104,196 @@ def getCard():
 	legalArray = [1,0,1,0,1]
 	mailTo = "/result2"
 	return render_template('getCard.html', table=table, mailTo=mailTo, message=message, legalArray=legalArray)
+=======
+ 	return render_template('createAccount.html')
+  
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	# Only do the following on a POST request
+	if request.method == 'POST':
+	# If the form is valid, then create the user in the db
+		if validateForm(request.form):
+		  createUser(request.form)      
+		  print('hello')
+      
+	return render_template('loginForm.html')
+  
+# @app.route('/start', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
+def start():
+  # We need to add a check in here once sessions and MySQL is implemented to make sure that the user is logged
+  # in before proceeding. If they are not logged in, then they need to be redirected back to the login page
+	table.fullReset(deck)
+	showTable = True
+	return render_template('start.html',table=table, showTable=showTable) #posts an 'r' to orderUpOrPass()
+>>>>>>> Stashed changes
 
 @app.route('/pick1', methods=['GET', 'POST'])
 def orderUpOrPass():
-	message = ""
-	mailTo = '/result1'
-	return render_template('pick1.html', table=table, mailTo=mailTo, message=message)
+	showTable = True;	
+	request.get_data()
+	rawMessage = request.data.decode("utf-8")
+	if not rawMessage: #this branch is reached when a deal is passed
+		action = 'z'
+	else:
+		action = rawMessage[2]
+		print('orderUpOrPass action: ' + action)
+
+	if action == 'z':
+		table.dealer = table.getNextPlayer(table.dealer)
+		table.leader = table.getNextPlayer(table.dealer)
+		table.reset(deck)
+		deck.shuffle()
+		table.dealer.euchreDeal(deck,table)
+		table.printTable()
+		print('dealer: ' + table.dealer.name)
+		print('leader: ' + table.leader.name)
+	if action == 'r':
+		table.dealer = table.seats[0]
+		table.leader = table.seats[1]
+		table.fullReset(deck)
+		deck.shuffle()
+		table.dealer.euchreDeal(deck,table)
+		table.printTable()
+		print('dealer: ' + table.dealer.name)
+		print('leader: ' + table.leader.name)
+	
+	if table.leader != table.seats[0]:
+		for i in range(table.seats.index(table.leader),4):
+			if not table.trump and not table.seats[i].pick1done:
+				table.seats[i].orderUpOrPass(table)
+				if table.trump and table.dealer == table.seats[0]:
+					table.dealer.pickUpTrump(table)
+					return redirect(url_for('discardExtra'))
+				elif table.trump:
+					table.dealer.pickUpTrump(table)
+					return redirect(url_for('getCard'))
+	if not table.trump and not table.seats[0].pick1done:
+		if action != 'o' and action != 'p':
+			return render_template('pick1.html', table=table, showTable=showTable)
+		else:
+			table.seats[0].orderUpOrPass(table, action)
+			if table.trump and table.dealer == table.seats[0]:
+				table.dealer.pickUpTrump(table)
+				return redirect(url_for('discardExtra'))
+			elif table.trump:
+				table.dealer.pickUpTrump(table)
+				return redirect(url_for('goAloneOrNot'))
+	leaderIndex = table.seats.index(table.leader)
+	if leaderIndex == 0: leaderIndex = 4
+	for i in range(1,leaderIndex):
+		if not table.trump and not table.seats[i].pick1done:
+			table.seats[i].orderUpOrPass(table)
+			if table.trump and table.dealer == table.seats[0]:
+				table.dealer.pickUpTrump(table)
+				return redirect(url_for('discardExtra'))
+			elif table.trump:
+				table.dealer.pickUpTrump(table)
+				return redirect(url_for('getCard'))
+	if not table.trump: 
+		return redirect(url_for('chooseOrPass'))
+
+@app.route('/discard', methods=['GET', 'POST'])
+def discardExtra():
+	showTable = True
+	request.get_data()
+	rawMessage = request.data.decode("utf-8")
+	if not rawMessage or rawMessage == '':
+		return render_template('discard.html', table=table, showTable=showTable)
+	else:
+		cardIndexStr = rawMessage[2]
+		table.seats[0].discardSixthCard(table, int(cardIndexStr))
+	
+	if table.seats[0].calledTrump: 
+		return redirect(url_for('goAloneOrNot'))
+	else: 
+		return redirect(url_for('getCard'))
 
 @app.route('/pick2', methods=['GET', 'POST'])
 def chooseOrPass():
-	message = ""
-	suitTurnedDown = "d"
-	mailTo = '/result1'
-	return render_template('pick2.html', table=table, mailTo=mailTo, message=message, suitTurnedDown=suitTurnedDown)
+	showTable = True
+	if(table.zones[4]): table.zones[5].append(table.zones[4].pop())
+	table.printTable()
+	if table.leader != table.seats[0]:
+		for i in range(table.seats.index(table.leader),4):
+			if not table.trump and not table.seats[i].pick2done:
+				table.seats[i].pickSuitOrPass(table)
+				if table.trump:
+					return redirect(url_for('getCard'))
+	if not table.trump and not table.seats[0].pick2done:
+		request.get_data()
+		rawMessage = request.data.decode("utf-8")
+		print('rawMessage: ' + rawMessage)
+		if not rawMessage or rawMessage == '':
+			suitTurnedDown = table.zones[5][0].suit
+			return render_template('pick2.html', table=table, suitTurnedDown=suitTurnedDown, showTable=showTable)
+		else:
+			action = rawMessage[2]
+			table.seats[0].pickSuit(table, action)
+			if table.trump:
+				return redirect(url_for('goAloneOrNot'))
+	leaderIndex = table.seats.index(table.leader)
+	if leaderIndex == 0: leaderIndex = 4
+	for i in range(1,leaderIndex):
+		if not table.trump and not table.seats[i].pick2done:
+			table.seats[i].pickSuitOrPass(table)
+			if table.trump:
+				return redirect(url_for('getCard'))
+	if not table.trump: 
+		print("passing deal")
+		return redirect(url_for('orderUpOrPass'))
 
-@app.route('/result1', methods=['GET', 'POST'])
-def displayChoice1():
+@app.route('/alone', methods=['GET', 'POST'])
+def goAloneOrNot():
+	showTable = True
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
-	message = "Result 1: You played " + rawMessage[2] + rawMessage[6] + rawMessage[10]
-	mailTo = ''
-	return render_template('start.html', table=table, mailTo=mailTo, message=message)
+	if not rawMessage or rawMessage == '':
+		return render_template('alone.html', table=table, showTable=showTable)
+	else:
+		action = rawMessage[2]
+		if action == 'g':
+			table.seats[0].goingAlone = True
+			print("player p0 is going alone")
+			table.seats[2].sittingOut = True
+	return redirect(url_for('getCard'))
 
-@app.route('/result2', methods=['GET', 'POST'])
-def displayChoice2():
-	request.get_data()
-	rawMessage = request.data.decode("utf-8")
-	message = "Result 2: You played " + rawMessage[2] + rawMessage[6] + rawMessage[10]
-	mailTo = ''
-	return render_template('start.html', table=table, mailTo=mailTo, message=message)
+@app.route('/get', methods=['GET', 'POST'])
+def getCard():
+	showTable = True
+	if table.leader != table.seats[0]:
+		for i in range(table.seats.index(table.leader),4):
+			if not table.zones[i] and not table.seats[(i+2)%4].goingAlone:
+				table.seats[i].playCard(table)
+	if not table.zones[0] and not table.seats[2].goingAlone:
+		request.get_data()
+		rawMessage = request.data.decode("utf-8")
+		if not rawMessage or rawMessage == '':
+			legalArray = table.seats[0].getLegalPlays(table)
+			return render_template('getCard.html', table=table, legalArray=legalArray, showTable=showTable)
+		else:
+			cardIndexStr = rawMessage[2]
+			table.seats[0].playCard(table, int(cardIndexStr))
+	leaderIndex = table.seats.index(table.leader)
+	if leaderIndex == 0: leaderIndex = 4
+	for i in range(1, leaderIndex):
+		if not table.zones[i] and not table.seats[(i+2)%4].goingAlone:
+			table.seats[i].playCard(table)
+	table.leader = table.getTrickWinner()
+	if table.getTrickCount() < 5: 
+		return redirect(url_for('getCard'))
+	else:
+		return endOfRound()
 
-@app.route('/deal', methods=['GET', 'POST'])
-def deal():
-	# table.assignPoints()
-	# table.reset(deck)
-	deck.shuffle()
+def endOfRound():
+	showTable = True
+	table.assignPoints()
+	if table.seats[0].points < 5 and table.seats[1].points < 5:
+		return render_template('endRound.html', table=table, showTable=showTable)
+	else:
+		return render_template('endGame.html', table=table, showTable=showTable)
 
-	table.dealer.euchreDeal(deck,table)
-	return start() 
 
-@app.route('/detour')
-def detour():
-	return getCard()
 
 
 	

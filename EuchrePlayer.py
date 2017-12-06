@@ -13,6 +13,9 @@ class EuchrePlayer(Player):
 		self.calledTrump = False
 		self.goingAlone = False
 		self.sittingOut = False
+
+		self.pick1done = False
+		self.pick2done = False
 				
 	def euchreDeal(self, deck, table):
 		dealerIndex = table.seats.index(self)
@@ -27,6 +30,7 @@ class EuchrePlayer(Player):
 		table.zones[4].append(deck.cards.pop(0)) #deck should still have 3 cards
 			
 	def orderUpOrPass(self, table):
+		self.pick1done = True
 		orderUp = input("%s: Do you want %s to be trump?" % (self.__str__(), table.zones[4][0].__str__()))
 		if orderUp == "yes": 
 			table.trump = table.zones[4][0].getSuit()

@@ -19,7 +19,7 @@ class EuchreTable(Table):
 			
 		self.trump = None
 		self.dealer = self.seats[0] #random.randint(0,3)
-		self.leader = self.seats[1] #right of randomly selected dealer
+		self.leader = self.getNextPlayer(self.dealer) #right of randomly selected dealer
 			
 		
 	def firstPlayOfTrick(self):
@@ -40,7 +40,8 @@ class EuchreTable(Table):
 		winningValue = 0
 		playedCardArray = []
 		for i in range(0,4):
-			playedCardArray.append(self.zones[(self.seats.index(self.leader)+i)%4][0])
+			if not self.seats[(self.seats.index(self.leader)+i)%4].sittingOut:
+				playedCardArray.append(self.zones[(self.seats.index(self.leader)+i)%4][0])
 		for card in playedCardArray:
 			adjSuit = card.suit
 			if card == self.getLeft(): adjSuit = self.trump
@@ -57,9 +58,12 @@ class EuchreTable(Table):
 				winningCard = card
 				winningValue = adjValue
 		#winner = self.seats[(self.seats.index(self.leader) + self.zones[0].index(winningCard))%4]
-		
-		winner = self.seats[0];
+
+		winner = self.seats[0]
 		i = 0
+		if winner.sittingOut: 
+				winner = self.getNextPlayer(winner)
+				i += 1
 		while self.zones[i][0] != winningCard:
 			winner = self.getNextPlayer(winner)
 			if winner.sittingOut: 
@@ -79,7 +83,8 @@ class EuchreTable(Table):
 		# 	self.zones[1].append(self.zones[0].pop())
 
 		for i in range(0,4):
-			self.zones[5].append(self.zones[i].pop())
+			if not self.seats[i].sittingOut:
+				self.zones[5].append(self.zones[i].pop())
 		
 		return winner
 		
@@ -135,6 +140,10 @@ class EuchreTable(Table):
 			player.goingAlone = False
 			player.sittingOut = False
 			player.tricksWon = 0
+
+			player.pick1done = False
+			player.pick2done = False
+			player.handSize = 0
 			while player.hand:
 				deck.cards.append(player.hand.pop())
 		# while self.zones[1]:
@@ -152,6 +161,17 @@ class EuchreTable(Table):
 		
 		
 		self.trump = None
+
+	def getTrickCount(self):
+		trickCount = 0
+		for player in self.seats:
+			trickCount += player.tricksWon
+		return trickCount
+
+	def fullReset(self, deck):
+		self.reset(deck)
+		for player in self.seats:
+			player.points = 0
 		
 		
 		

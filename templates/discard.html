@@ -3,14 +3,11 @@
  
 
 <div class="block1">
-	
 	<h1>Hello {{table.seats[0].name}}!</h1> 
-	<h2>Pick a legal card</h2>
+	<h2>Discard a card</h2>
 	<h3 id='info'></h3>
 	<script>
-		legalArray = {{legalArray}};
-		console.log(legalArray);
-		table.seats[0].pickCardToPlay(legalArray);
+		table.seats[0].pickCardToDiscard();
 
 		var suitArray = ["s","h","d","c"];
 		var suitNameArray = ["Spades","Hearts","Diamonds","Clubs"];
@@ -23,11 +20,8 @@
 		else if('{{table.seats[3].calledTrump}}' == 'True') trumpCaller = '{{table.seats[3].name}}';
 		else trumpCaller = "error";
 		$('info').innerHTML = 'Dealer: {{table.dealer.name}} | Trump: ' + trump + ' | ' + trumpCaller + ' called trump';
-
-
-
-
 	</script>
-
+	
 </div>
+
 {% endblock %}

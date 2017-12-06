@@ -3,9 +3,8 @@
  
 
 <div class="block1">
-	<h1>Hello {{table.seats[0].name}}!</h1> 
+	
 	<script>
-		mailTo = "{{mailTo}}";
 		var suitTurnedDown = "{{suitTurnedDown}}";
 		var suitArray = ["s","h","d","c"];
 		var suitNameArray = ["Spades","Hearts","Diamonds","Clubs"];
@@ -19,19 +18,20 @@
 		}
 		console.log(suitArray);
 
-
 	</script>
-	<h2>{{message}}</h2>
-	<h2 id="instruction">Pick a suit to be trump or pass</h2>
-	<button id="button0" onclick="table.seats[0].chooseTrump(suitArray[0], mailTo)">button0</button>
-	<button id="button1" onclick="table.seats[0].chooseTrump(suitArray[1], mailTo)">button1</button>
-	<button id="button2" onclick="table.seats[0].chooseTrump(suitArray[2], mailTo)">button2</button>
-	<button onclick="table.seats[0].pass2()">Pass</button>
+	<h1>Hello {{table.seats[0].name}}!</h1> 
+	<h2 id='instruction'></h2>
+	<h3>Dealer: {{table.dealer.name}}</h3>
+	<button id="button0" onclick="post('/pick2', suitArray[0])">button0</button>
+	<button id="button1" onclick="post('/pick2', suitArray[1])">button1</button>
+	<button id="button2" onclick="post('/pick2', suitArray[2])">button2</button>
+	<button onclick="post('/pick2','p')">Pass</button>
+
 	<script>
 		$("instruction").innerHTML = suitNameTurnedDown + " turned down, select another suit to be trump or pass";
-		document.getElementById("button0").innerHTML = suitNameArray[0];
-		document.getElementById("button1").innerHTML = suitNameArray[1];
-		document.getElementById("button2").innerHTML = suitNameArray[2];
+		$("button0").innerHTML = suitNameArray[0];
+		$("button1").innerHTML = suitNameArray[1];
+		$("button2").innerHTML = suitNameArray[2];
 	</script>
 
 </div>

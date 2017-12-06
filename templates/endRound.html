@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block body %}
+ 
+
+<div class="block1">
+	
+	<h1>Results</h1> 
+	<p id="whoCalledTrump"></p>
+	<p id="teamAresults"></p>
+	<p id="teamBresults"></p>
+
+	<script>
+		var trumpCaller;
+		if("{{table.seats[0].calledTrump}}" == "True") trumpCaller = "{{table.seats[0].name}}";
+		else if("{{table.seats[1].calledTrump}}" == "True") trumpCaller = "{{table.seats[1].name}}";
+		else if("{{table.seats[2].calledTrump}}" == "True") trumpCaller = "{{table.seats[2].name}}";
+		else if("{{table.seats[3].calledTrump}}" == "True") trumpCaller = "{{table.seats[3].name}}";
+		else trumpCaller = "error"
+		$('whoCalledTrump').innerHTML = "Player " + trumpCaller + " called trump";
+		$('teamAresults').innerHTML = 'Players {{table.seats[0].name}} and {{table.seats[2].name}} won {{table.seats[0].tricksWon + table.seats[2].tricksWon}} tricks';
+		$('teamBresults').innerHTML = 'Players {{table.seats[1].name}} and {{table.seats[3].name}} won {{table.seats[1].tricksWon + table.seats[3].tricksWon}} tricks';
+
+	</script>
+	
+
+	<button onclick="post('/pick1', 'z');">Next Round</button>
+
+
+</div>
+{% endblock %}

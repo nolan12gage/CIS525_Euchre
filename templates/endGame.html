@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block body %}
+ 
+
+<div class="block1">
+	
+	<h1 id='gamewinners'></h1>
+	<p id="teamAresults"></p>
+	<p id="teamBresults"></p>
+
+	<script>
+
+		var teamApoints = parseInt('{{table.seats[0].points}}');
+		var teamBpoints = parseInt('{{table.seats[1].points}}');
+		if(teamApoints >= 5)
+		{
+			$('gamewinners').innerHTML = 'Game Over! Players {{table.seats[0].name}} and {{table.seats[2].name}} won!';
+		}
+		else
+		{
+			$('gamewinners').innerHTML = 'Game Over! Players {{table.seats[1].name}} and {{table.seats[3].name}} won!';
+		}
+		
+		$('teamAresults').innerHTML = 'Players {{table.seats[0].name}} and {{table.seats[2].name}} have {{table.seats[0].points}} points';
+		$('teamBresults').innerHTML = 'Players {{table.seats[1].name}} and {{table.seats[3].name}} have {{table.seats[1].points}} points';
+
+	</script>
+
+
+</div>
+{% endblock %}

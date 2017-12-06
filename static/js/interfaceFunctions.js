@@ -3,6 +3,7 @@ var $ = function (id) { return document.getElementById(id); };
 
 function post(path, params, method) {
     method = method || "post"; // Set method to post by default if not specified.
+    params = params || ""
 
     var form = document.createElement("form");
     form.setAttribute("method", method);
@@ -21,8 +22,7 @@ function post(path, params, method) {
 
     document.body.appendChild(form);
     form.submit();
-}
-
+};
 
 
 

@@ -2,11 +2,6 @@
 
 var $ = function (id) { return document.getElementById(id); };
 
-// var testFun = function()
-// {
-// 	console.log("testFun");
-// };
-
 var createTable = function()
 {
 	var html = "";
@@ -19,10 +14,6 @@ var createTable = function()
 			"<div id=\"westplay\"></div>" +
 			"<div id=\"eastplay\"></div>" +
 			"<div id=\"southplay\"></div>" + 
-			"<div id=\"northComSpace\"></div>" + 
-			"<div id=\"westComSpace\"></div>" + 
-			"<div id=\"eastComSpace\"></div>" + 
-			"<div id=\"southComSpace\"></div>" + 
 			"<div id=\"northpoints\"></div>" + 
 			"<div id=\"westpoints\"></div>" + 
 			"<div id=\"eastpoints\"></div>" + 
@@ -65,6 +56,8 @@ var styleTable = function()
 	var centerHorizontal = Math.floor((tableLength - cardWidth)/2);
 	var handLength = 5*fanDistance + cardWidth;
 	var handHorizontal = Math.floor((tableLength - handLength)/2);
+	var pointsWidth = 90;
+	var pointsHeight = 45;
 	
 	$("game_table").style.height = tableLength + "px";
 	$("game_table").style.width = tableLength + "px";
@@ -72,7 +65,7 @@ var styleTable = function()
 	$("north").style.height = cardHeight + "px";
 	$("north").style.width = handLength + "px";
 	$("north").style.top = "0px";
-	$("north").style.left = handHorizontal + "px";
+	$("north").style.right = handHorizontal + "px";
 	
 	$("west").style.height = handLength + "px";
 	$("west").style.width = cardHeight + "px";
@@ -114,45 +107,25 @@ var styleTable = function()
 	$("southplay").style.bottom = playSpaceVertical + "px";
 	$("southplay").style.left = playSpaceHorizontal + "px";
 
-	$("northComSpace").style.height = cardHeight + "px";
-	$("northComSpace").style.width = cardWidth + "px";
-	$("northComSpace").style.top = 0;
-	$("northComSpace").style.left = 0;
-
-	$("westComSpace").style.height = cardWidth + "px";
-	$("westComSpace").style.width = cardHeight + "px";
-	$("westComSpace").style.bottom = 0;
-	$("westComSpace").style.left = 0;
-
-	$("eastComSpace").style.height = cardWidth + "px";
-	$("eastComSpace").style.width = cardHeight + "px";
-	$("eastComSpace").style.top = 0;
-	$("eastComSpace").style.right = 0;
-
-	$("southComSpace").style.height = cardHeight + "px";
-	$("southComSpace").style.width = cardWidth + "px";
-	$("southComSpace").style.bottom = 0;
-	$("southComSpace").style.right = 0;
-
-	$("northpoints").style.height = 40 + "px";
-	$("northpoints").style.width = 90 + "px";
+	$("northpoints").style.height = pointsHeight + "px";
+	$("northpoints").style.width = pointsWidth + "px";
 	$("northpoints").style.top = playSpaceVertical + "px";
-	$("northpoints").style.left = 110 + "px";
+	$("northpoints").style.right = handHorizontal + "px";
 
-	$("westpoints").style.height = 40 + "px";
-	$("westpoints").style.width = 90 + "px";
-	$("westpoints").style.bottom = 150 + "px";
-	$("westpoints").style.left = 110 + "px";
+	$("westpoints").style.height = pointsHeight + "px";
+	$("westpoints").style.width = pointsWidth + "px";
+	$("westpoints").style.top = handHorizontal + "px";
+	$("westpoints").style.left = playSpaceVertical + "px";
 
-	$("eastpoints").style.height = 40 + "px";
-	$("eastpoints").style.width = 90 + "px";
-	$("eastpoints").style.top = playSpaceVertical + "px";
-	$("eastpoints").style.right = 110 + "px";
+	$("eastpoints").style.height = pointsHeight + "px";
+	$("eastpoints").style.width = pointsWidth + "px";
+	$("eastpoints").style.bottom = handHorizontal + "px";
+	$("eastpoints").style.right = playSpaceVertical + "px";
 
-	$("southpoints").style.height = 40 + "px";
-	$("southpoints").style.width = 90 + "px";
-	$("southpoints").style.bottom = 150 + "px";
-	$("southpoints").style.right = 110 + "px";
+	$("southpoints").style.height = pointsHeight + "px";
+	$("southpoints").style.width = pointsWidth + "px";
+	$("southpoints").style.bottom = playSpaceVertical + "px";
+	$("southpoints").style.left = handHorizontal + "px";
 
 	var cards = $("north").getElementsByTagName("img");
 	for(var i = 0; i < cards.length; i++)

@@ -3,15 +3,10 @@
  
 
 <div class="block1">
-	
 	<h1>Hello {{table.seats[0].name}}!</h1> 
-	<h2>Pick a legal card</h2>
+	<h2>Do you want to go alone?</h2>
 	<h3 id='info'></h3>
 	<script>
-		legalArray = {{legalArray}};
-		console.log(legalArray);
-		table.seats[0].pickCardToPlay(legalArray);
-
 		var suitArray = ["s","h","d","c"];
 		var suitNameArray = ["Spades","Hearts","Diamonds","Clubs"];
 		var trump = suitNameArray[suitArray.indexOf('{{table.trump}}')];
@@ -23,11 +18,10 @@
 		else if('{{table.seats[3].calledTrump}}' == 'True') trumpCaller = '{{table.seats[3].name}}';
 		else trumpCaller = "error";
 		$('info').innerHTML = 'Dealer: {{table.dealer.name}} | Trump: ' + trump + ' | ' + trumpCaller + ' called trump';
-
-
-
-
 	</script>
-
+	
+	<button onclick="post('/alone','g')">Yes</button>
+	<button onclick="post('/alone','n')">No</button>
+	<p>
 </div>
 {% endblock %}

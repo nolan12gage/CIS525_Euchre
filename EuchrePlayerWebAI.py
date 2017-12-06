@@ -5,7 +5,7 @@ from EuchrePlayer import EuchrePlayer
 from Player import Player
 from Table import Table
 
-class EuchrePlayerAI(EuchrePlayer):
+class EuchrePlayerWebAI(EuchrePlayer):
 
 	def __init__(self, name):
 		EuchrePlayer.__init__(self,name)
@@ -23,7 +23,6 @@ class EuchrePlayerAI(EuchrePlayer):
 			print("%s ordered up the %s" % (self.__str__(), table.zones[4][0].__str__()))
 			self.calledTrump = True
 			table.trump = table.zones[4][0].getSuit()
-			table.dealer.pickUpTrump(table)
 			trumpCount = 0
 			for card in self.hand:
 				if card.getSuit() == table.trump: trumpCount += 1
@@ -42,9 +41,10 @@ class EuchrePlayerAI(EuchrePlayer):
 		index = 0
 		table.zones[5].append(self.hand.pop(index))
 		
-	def pickSuit(self,table):
+	def pickSuitOrPass(self,table):
 		suitCount = {"s": 0, "h": 0, "d": 0, "c": 0}
 		choice = "pass"
+		self.pick2done = True
 		for card in self.hand:
 			suitCount[card.getSuit()] += 1 #add left logic
 		for key in suitCount:
@@ -75,7 +75,6 @@ class EuchrePlayerAI(EuchrePlayer):
 		else:
 			suitInHand = False
 			ledSuit = table.zones[table.seats.index(table.leader)][0].suit
-			# print("ledSuit: %s" % ledSuit)
 			if table.zones[table.seats.index(table.leader)][0] == table.getLeft(): ledSuit = table.trump
 			for card in self.hand: ### first condition doesn't handle bauers correctly
 				if (card != table.getLeft() and card.suit == ledSuit) or (ledSuit == table.trump and card == table.getLeft()): suitInHand = True
@@ -84,7 +83,6 @@ class EuchrePlayerAI(EuchrePlayer):
 				
 				adjSuit = self.hand[cardIndex].suit ###causes errors when following with right bauer
 				if self.hand[cardIndex] == table.getLeft(): adjSuit = table.trump
-				#print("cardIndex: %s, adjSuit: %s, ledSuit: %s" % (str(cardIndex), adjSuit, ledSuit))
 				if suitInHand and (adjSuit != ledSuit):
 					cardIndex += 1
 					continue

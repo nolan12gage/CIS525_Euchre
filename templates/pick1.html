@@ -3,14 +3,15 @@
  
 
 <div class="block1">
-	<h1>Hello {{table.seats[0].name}}!</h1> 
+	
 	<script>
-		mailTo = "{{mailTo}}";
+		
 	</script>
-	<h2>{{message}}</h2>
+	<h1>Hello {{table.seats[0].name}}!</h1> 
 	<h2>Order up the center card or pass</h2>
-	<button onclick="table.seats[0].pass1(mailTo)">Pass</button>
-	<button onclick="table.seats[0].orderUp(mailTo)">Order Up</button>
+	<h3>Dealer: {{table.dealer.name}}</h2>
+	<button onclick="post('/pick1', 'p')">Pass</button>
+	<button onclick="post('/pick1', 'o')">Order Up</button>
 	<p>
 </div>
 {% endblock %}

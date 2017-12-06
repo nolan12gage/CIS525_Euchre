@@ -5,11 +5,11 @@
 <div class="block1">
 	<h1>Hello {{table.seats[0].name}}!</h1> 
 	<script>
-		mailTo = "{{mailTo}}";
 
 	</script>
-	<h2>{{message}}</h2>
-	<button onclick="startGame(mailTo)">Start Game</button>
+	<!-- <button onclick="startGame(mailTo)">Start Game</button> -->
+	<button onclick="post('/pick1', 'r');">Start Game</button>
+
 
 </div>
 {% endblock %}
