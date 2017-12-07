@@ -121,4 +121,15 @@ def createUser(form):
   cursor.close()
   conn.close()
   
+def addWin(username):
+  conn = mysql.connector.connect(host=host, database=database, user=user, password=password)
+  cursor = conn.cursor()
+  add_win = ("UPDATE USER_INFO SET CAREER_WINS = CAREER_WINS + 1 WHERE USER_ID = %s")
+  add_crit = (username,)
+  cursor.execute(add_win, add_crit)
+  conn.commit()
+  cursor.close()
+  conn.close()
+  
+  
 

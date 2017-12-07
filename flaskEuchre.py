@@ -242,12 +242,14 @@ def getCard():
 		return endOfRound()
 
 def endOfRound():
-	showTable = True
-	table.assignPoints()
-	if table.seats[0].points < 5 and table.seats[1].points < 5:
-		return render_template('endRound.html', table=table, showTable=showTable)
-	else:
-		return render_template('endGame.html', table=table, showTable=showTable)
+  showTable = True
+  table.assignPoints()
+  if table.seats[0].points < 5 and table.seats[1].points < 5:
+    return render_template('endRound.html', table=table, showTable=showTable)
+  else:
+    if table.seats[0].points >= 5:
+     addWin(session['username'])
+    return render_template('endGame.html', table=table, showTable=showTable)
 
 
 
