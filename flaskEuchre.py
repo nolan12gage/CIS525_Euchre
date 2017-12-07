@@ -20,24 +20,26 @@ p2 = EuchrePlayerWebAI("Becky")
 p3 = EuchrePlayerWebAI("Ethan")
 table = EuchreTable(p0, p1, p2, p3)
 
+gameReturnPoint = '/'
 
 @app.route('/about')
 def about():
-	return render_template('about.html')  
+	print(gameReturnPoint)
+	return render_template('about.html', gameReturnPoint=gameReturnPoint)  
 
 @app.route('/rules')
 def rules():
-	return render_template('rules.html')
+	return render_template('rules.html', gameReturnPoint=gameReturnPoint)
 
-@app.route('/score')
-def highScores():
-	return render_template('score.html')
+# @app.route('/score')
+# def highScores():
+# 	return render_template('score.html', gameReturnPoint=gameReturnPoint)
   
 @app.route('/leaderboard')
 def leaderBoard():
 	leaders = getLeaders()
 	print(len(leaders))
-	return render_template('leaderboard.html', leaders=leaders)
+	return render_template('leaderboard.html', leaders=leaders, gameReturnPoint=gameReturnPoint)
   
   
 @app.route('/join', methods=['GET', 'POST'])
@@ -71,11 +73,11 @@ def logout():
     # remove the username from the session if it's there
 	session.pop('username', None)
 	return redirect(url_for('start'))
-    
+
 @app.route('/', methods=['GET', 'POST'])
 def start():
-  # We need to add a check in here once sessions and MySQL is implemented to make sure that the user is logged
-  # in before proceeding. If they are not logged in, then they need to be redirected back to the login page
+	global gameReturnPoint
+	gameReturnPoint = '/'
 	if 'username' in session:
 		table.seats[0].name = session['username']
 		table.fullReset(deck)
@@ -86,6 +88,8 @@ def start():
 
 @app.route('/pick1', methods=['GET', 'POST'])
 def orderUpOrPass():
+	global gameReturnPoint
+	gameReturnPoint = '/pick1'
 	showTable = True;	
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
@@ -151,6 +155,8 @@ def orderUpOrPass():
 
 @app.route('/discard', methods=['GET', 'POST'])
 def discardExtra():
+	global gameReturnPoint
+	gameReturnPoint = '/discard'
 	showTable = True
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
@@ -167,6 +173,8 @@ def discardExtra():
 
 @app.route('/pick2', methods=['GET', 'POST'])
 def chooseOrPass():
+	global gameReturnPoint
+	gameReturnPoint = '/pick2'
 	showTable = True
 	if(table.zones[4]): table.zones[5].append(table.zones[4].pop())
 	table.printTable()
@@ -201,6 +209,8 @@ def chooseOrPass():
 
 @app.route('/alone', methods=['GET', 'POST'])
 def goAloneOrNot():
+	global gameReturnPoint
+	gameReturnPoint = '/alone'
 	showTable = True
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
@@ -216,6 +226,8 @@ def goAloneOrNot():
 
 @app.route('/get', methods=['GET', 'POST'])
 def getCard():
+	global gameReturnPoint
+	gameReturnPoint = '/get'
 	showTable = True
 	if table.leader != table.seats[0]:
 		for i in range(table.seats.index(table.leader),4):
