@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 	<title>Leaderboard</title>
@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="../static/styles/main.css">
     
 </head>
-<body style="width: 30%">
+<body style="width: 30%"> -->
+
+{% extends "layout.html" %}
+{% block body %}
+
 <h1>Leaderboard</h1>
 <br>
 <table id="leaderboard">
@@ -27,9 +31,12 @@
     <td>{{ldr[4]}}</td>
   </tr>
   {% endfor %}
-</table
-</body>
+</table>
+
+{% endblock %}
+
+<!-- </body>
 <footer>
       &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
 </footer>
-</html>
+</html> -->

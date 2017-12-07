@@ -7,7 +7,14 @@
     <link rel="stylesheet" href="../static/styles/main.css">
     
 </head>
+
 <body style="width: 30%">
+
+<!-- {% extends "layout.html" %}
+{% block body %} -->
+
+
+
 <h1>sign in to play</h1>
 {% if loginErr %}
 <p class ="formError"> *{{loginErr}}</p>  
@@ -33,7 +40,11 @@
 <p>Don't have an account? <a href='join'>Create one</a></p>
 <p>Enjoy!</p>
 
+<!-- {% endblock %} -->
+
 </body>
+
+
 <footer>
       &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
 </footer>
