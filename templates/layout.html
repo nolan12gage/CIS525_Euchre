@@ -22,7 +22,7 @@
 		    		<li><a href="login">Login</a></li>
 		    		<li><a href="rules">Rules</a></li>
 		           	<li><a href="about">About</a></li>
-		    		<li><a href="/">Start Play</a></li>
+		    		<li><a href="{{gameReturnPoint}}">Play</a></li>
 				    <li><a href="leaderboard">Leaderboard</a></li>         
 		    	</ul>
 		    </nav>
@@ -131,13 +131,19 @@
 
 		
 	</script>
+
+
 	{% endif %}
+	
 
 	{% block body %}
 
 	{% endblock %}
 
+	{% if showTable %}
 	<button onclick="post('/');">New Game</button>
+	{% endif %}
+	
 	<footer>
 		
 	     &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
