@@ -108,6 +108,16 @@ def verifyCredentials(form):
     return credErr
   
   return credErr  
+	
+def updateLastLogin(username):
+	conn = mysql.connector.connect(host=host, database=database, user=user, password=password)
+	cursor = conn.cursor()
+	update_login = ("UPDATE USER_INFO SET LAST_LOGIN = CURDATE() WHERE USER_ID = %s")
+	update_crit = (username,)
+	cursor.execute(update_login, update_crit)
+	conn.commit()
+	cursor.close()
+	conn.close()
 
 def createUser(form):
   conn = mysql.connector.connect(host=host, database=database, user=user, password=password)

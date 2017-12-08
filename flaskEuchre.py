@@ -46,17 +46,32 @@ def leaderBoard():
 def createAccount():  
 	idErr = pwErr = confErr = emailErr = locErr = ageErr = ''
 	if request.method == 'POST':
-	    idErr = validateID(request.form['userID'])
-	    pwErr = validatePassword(request.form['password'])
-	    confErr = validateConf(request.form['password'], request.form['confirmPassword'])
-	    emailErr = validateEmail(request.form['email'])
-	    locErr = validateLocation(request.form['country'])
-	    ageErr = validateAge(request.form['age'])
-	    if not idErr and not pwErr and not confErr and not emailErr and not locErr and not ageErr:
-	    	createUser(request.form)
-	    	return redirect(url_for('.login'))
-
-	return render_template('createAccount.html', idErr=idErr, pwErr=pwErr, confErr=confErr, emailErr=emailErr, locErr=locErr, ageErr=ageErr)
+			idErr = validateID(request.form['userID'])
+			pwErr = validatePassword(request.form['password'])
+			confErr = validateConf(request.form['password'], request.form['confirmPassword'])
+			emailErr = validateEmail(request.form['email'])
+			locErr = validateLocation(request.form['country'])
+			ageErr = validateAge(request.form['age'])
+			if not idErr and not pwErr and not confErr and not emailErr and not locErr and not ageErr:
+				createUser(request.form)
+				return redirect(url_for('.login'))
+			else: 
+				userID = password = confPass = email = location = age = ''
+				if not idErr:
+					userID = request.form['userID']
+				if not pwErr and not confErr:
+					password = request.form['password']
+					confPass = request.form['confirmPassword']
+				if not emailErr:
+					email = request.form['email']
+				if not locErr:
+					location = request.form['country']
+				if not ageErr:
+					age = request.form['age']
+				return render_template('createAccount.html', idErr=idErr, pwErr=pwErr, confErr=confErr, emailErr=emailErr, 
+															 locErr=locErr, ageErr=ageErr, gameReturnPoint=gameReturnPoint, userID=userID,
+															 password=password, confPass=confPass, email=email, location=location, age=age)
+	return render_template('createAccount.html', idErr=idErr, pwErr=pwErr, confErr=confErr, emailErr=emailErr, locErr=locErr, ageErr=ageErr, gameReturnPoint=gameReturnPoint)
   
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -65,8 +80,11 @@ def login():
 		loginErr = verifyCredentials(request.form)
 		if not loginErr:
 			session['username'] = request.form['userID']
+			updateLastLogin(session['username'])
 			return redirect(url_for('start'))
-	return render_template('loginForm.html', loginErr=loginErr)
+		else:
+			return render_template('loginForm.html', loginErr=loginErr, gameReturnPoint=gameReturnPoint, userID=request.form['userID'])
+	return render_template('loginForm.html', loginErr=loginErr, gameReturnPoint=gameReturnPoint)
 
 @app.route('/logout')
 def logout():
@@ -82,9 +100,10 @@ def start():
 		table.seats[0].name = session['username']
 		table.fullReset(deck)
 		showTable = True
-		return render_template('start.html',table=table, showTable=showTable) #posts an 'r' to orderUpOrPass()
+		return render_template('start.html',table=table, showTable=showTable, session=session) #posts an 'r' to orderUpOrPass()
 	else:
-		return redirect(url_for('.login'))
+		showTable = False
+		return render_template('start.html',table=table, showTable=showTable, session=session)
 
 @app.route('/pick1', methods=['GET', 'POST'])
 def orderUpOrPass():

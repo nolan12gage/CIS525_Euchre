@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html>
 <head>
 	<title>Euchre Login</title>
@@ -7,40 +7,34 @@
     <link rel="stylesheet" href="../static/styles/main.css">
     
 </head>
+<body style="width: 30%">-->
 
-<body style="width: 30%">
-
-
-
-<h1>sign in to play</h1>
+{% extends "layout.html" %}
+{% block body %}
+<h1>Please Sign In</h1>
 {% if loginErr %}
 <p class ="formError"> *{{loginErr}}</p>  
+<br>
 {% endif %}
 <form method="post">
   User ID:<br>
-  <input type="text" name="userID" value="" >
+  <input type="text" name="userID" value="{{userID}}" >
   <br><br>
   Password:<br>
-  <input type="text" name="password" value="" required>
+  <input type="password" name="password" value="" required>
   <br><br>
   <button type="submit" >Login</button>
-  <button onclick="goBack()">Go Back</button>
-  <script>
-	function goBack() {
-	    window.history.back();
-	}
-  </script> 
-
-  <br><br>
-  <input type="checkbox" checked="checked"> Remember me
+  
 </form> 
+<br><br>
+<!--<input type="checkbox" checked="checked"> Remember me -->
 <p>Don't have an account? <a href='join'>Create one</a></p>
 <p>Enjoy!</p>
-
-</body>
+{% endblock %}
+<!--</body>
 
 
 <footer>
       &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
 </footer>
-</html>
+</html>-->

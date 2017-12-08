@@ -8,8 +8,11 @@
 
 	</script>
 	<!-- <button onclick="startGame(mailTo)">Start Game</button> -->
+	{% if 'username' in session %}
 	<button onclick="post('/pick1', 'r');">Start Game</button>
-
+	{% else %}
+	<h2>Please log in to play!<h2>
+	{% endif %}
 
 </div>
 {% endblock %}
