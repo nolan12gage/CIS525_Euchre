@@ -108,15 +108,20 @@ def start():
 @app.route('/pick1', methods=['GET', 'POST'])
 def orderUpOrPass():
 	global gameReturnPoint
-	gameReturnPoint = '/pick1'
+	
 	showTable = True;	
 	request.get_data()
 	rawMessage = request.data.decode("utf-8")
-	if not rawMessage: #this branch is reached when a deal is passed
+	# if not rawMessage: #this branch is reached when a deal is passed
+	action = ''
+	if gameReturnPoint == '/pick2': #this branch is reached when a deal is passed
+		print('deal passed around')
 		action = 'z'
-	else:
+	elif rawMessage:
 		action = rawMessage[2]
 		print('orderUpOrPass action: ' + action)
+
+	gameReturnPoint = '/pick1'
 
 	if action == 'z':
 		table.dealer = table.getNextPlayer(table.dealer)

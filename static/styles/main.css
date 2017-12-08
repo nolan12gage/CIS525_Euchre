@@ -17,8 +17,12 @@ h1{
 	text-align: center;
 }
 
-/*Standard 960 and above*/
-/*body section*/
+aside {
+	position: relative;
+
+	width: 150px;
+	height: 600px;
+}
 body {
 	font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
@@ -52,43 +56,36 @@ table {
     margin-left: 40%;*/
 }
 
-table th {
-	border: 1px solid red;
-}
-
-table td {
-	border: 1px solid red;
-}
 
 /* The styles for the navigation menu - 2tire */
-#menu ul {	list-style-type: none; position: relative; }
-#menu ul li { float: left; width: 20%; text-align: center;}
-
-/* designthe navigation menu */
-#menu ul {
+#menu ul {	
+	list-style-type: none; 
+	position: relative;	
+	//left:15%;
+	height: 50px;
 	margin: 0;
-	padding-bottom:50px;
-	padding-left: 0;
+	//padding-bottom:50px;
+	padding: 0;
 }
+#menu ul li { 
+	//float: left;
+	width: 150px;
+	height: 50px;
+}
+
 /*design element in nav id=menue*/
 #menu ul li a {
 		margin: 0 auto;
     text-align: center;
-    display: block;
-    width: 175px;
-    padding: 1em 0;      
+    //display: block;
+    //width: 175px;
+    //padding: 1em 0;   
+    padding: 10px 0;   
     text-decoration: none;
     color: white;
     font-weight: bold;
  
-}
-/*ul inside ul*/       
-              
-/*hover the child of li*/
-#menu ul li:hover > ul {         
-      width: 100%; /*full width of list*/                                  
-     display: block; /*display when hover*/
-} 
+}      
 
 /* design footer */
 footer {
@@ -121,28 +118,32 @@ button {
 
 /* music buttons */
 #playbtn {
-	/*position:absolute;
-	top:300px;*/
-
+	position:relative;
+	height: 24px;
+	width: 24px;
+	left:0px;
 	cursor:pointer;
-	width:20%;
-    border: none;
-    background: none;
+  border: none;
+  background: none;
 	outline: none;
 	display:block;
-	margin-top: 15px;
+	margin:0;
+	padding-top: 5px;
+	padding-left: 50px;
 }
 
 #stopbtn {
-	/*position:absolute;
-	top:400px;*/
-
+	position:relative;
+	height: 24px;
+	width: 24px;
+	left:30px;
+	top: -24px;
 	cursor:pointer;
-	width:20%;
-    border: none;
-    background: none;
+  border: none;
+  background: none;
 	outline: none;
 	display:block;
-	margin-top: 15px;
+	margin:0;
+	padding-top: 5px;
+	padding-left: 50px;
 }
->>>>>>> Stashed changes

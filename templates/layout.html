@@ -15,16 +15,19 @@
 	<body>
 		<header>
 			<img src="../static/images/Its-Euchre-time.jpg" alt="Euchre Game" width="1000">
+		</header>
+		<aside>
 			<nav id="menu">
-		    <ul>
-					<li><a href="rules">Rules</a></li>
-		      <li><a href="about">About</a></li>
-					<li><a href="{{gameReturnPoint}}">Play</a></li>
-				  <li><a href="leaderboard">Leaderboard</a></li>  
-		    	<li><a href="login">Login</a></li>					
-		    </ul>
-		  </nav>
-	  </header>
+		    	<ul>
+		    		<li><button id="playbtn"style="font-size:24px" class="fa">&#xf144;</button><button id="stopbtn"style="font-size:24px" class="fa">&#xf28d;</button></li>
+		    		<li><a href="login">Login</a></li>
+		    		<li><a href="rules">Rules</a></li>
+		           	<li><a href="about">About</a></li>
+		    		<li><a href="{{gameReturnPoint}}">Play</a></li>
+				    <li><a href="leaderboard">Leaderboard</a></li>         
+		    	</ul>
+		    </nav>
+	    </aside>
 
 	<script>
 		var audio;
@@ -132,17 +135,15 @@
 
 
 	{% endif %}
-	
+
 
 	{% block body %}
 
 	{% endblock %}
 
 	{% if showTable %}
-	<button onclick="post('/');">New Game</button>
+	<button class='gameplay' onclick="post('/');">New Game</button>
 	{% endif %}
-	<button id="playbtn"style="font-size:24px" class="fa">&#xf144; Play Music</button>
-	<button id="stopbtn"style="font-size:24px" class="fa">&#xf28d; Stop Music</button>
 	<footer>
 		
 	     &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.

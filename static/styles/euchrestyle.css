@@ -8,10 +8,15 @@ p {
 	margin: 0;
 }
 
+.gameplay {
+	background-color: buttonface;
+}
+
 #game_table {
 	margin: auto;
 	background-color: rgb(220,220,220);
 	position: relative;
+	//float: left;
 }
 
 #north {
