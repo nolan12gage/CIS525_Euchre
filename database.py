@@ -5,7 +5,7 @@ import re
 
 host = 'localhost'
 database = 'euchre_users'
-user = 'root'
+user = 'euchremaster'
 password = 'mysql'
 
 def validateID(id):

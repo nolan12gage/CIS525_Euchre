@@ -9,6 +9,7 @@ header img {
 	display:inline-block;
 	margin: 0 auto;
 	height: 50px;
+	width: 800px;
 }
 
 h1{
@@ -16,16 +17,20 @@ h1{
 	text-align: center;
 }
 
-/*Standard 960 and above*/
-/*body section*/
+aside {
+	position: relative;
+
+	width: 150px;
+	height: 600px;
+}
 body {
 	font-family: Arial, Helvetica, sans-serif;
     font-size: 100%;
-	width: 1000px;
+	width: 800px;
 	max-width: 1200px; /*max width of the page*/
 	background-color: green;
 	margin: 1em auto;
-	padding-top: 1em;
+	//padding-top: 1em;
 	border: 5px solid green;
 
 }
@@ -50,22 +55,28 @@ table {
 }
 
 /* The styles for the navigation menu - 2tire */
-#menu ul {	list-style-type: none; position: relative;	left:15%;
+#menu ul {	
+	list-style-type: none; 
+	position: relative;	
+	//left:15%;
+	height: 50px;
+	margin: 0;
+	//padding-bottom:50px;
+	padding: 0;
 }
-#menu ul li { float: left;
+#menu ul li { 
+	//float: left;
+	width: 150px;
+	height: 50px;
 }
 
-/* designthe navigation menu */
-#menu ul {
-	margin: 0;
-	padding-bottom:50px;
-}
 /*design element in nav id=menue*/
 #menu ul li a {
     text-align: center;
-    display: block;
-    width: 175px;
-    padding: 1em 0;      
+    //display: block;
+    //width: 175px;
+    //padding: 1em 0;   
+    padding: 10px 0;   
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -73,17 +84,6 @@ table {
 }
 /*ul inside ul*/       
              
-
-} 
-#menu ul li {
-	float: left;
-	
-}
-/*hover the child of li*/
-#menu ul li:hover > ul {         
-      width: 100%; /*full width of list*/                                  
-     display: block; /*display when hover*/
-} 
 
 /* design footer */
 footer {
@@ -99,11 +99,11 @@ footer {
 }
 button {
     background-color: yellow;
-    padding: 14px 20px;
-    margin: 8px 0;
-    cursor: pointer;
-    width:50%;
-    margin-left: 25%; 
+    //padding: 14px 20px;
+    //margin: 8px 0;
+    //cursor: pointer;
+    //width:50%;
+    //margin-left: 25%; 
 }
 
 .formError {
@@ -116,28 +116,34 @@ button {
 
 /* music buttons */
 #playbtn {
-	position:absolute;
-	top:300px;
+	position:relative;
+	height: 24px;
+	width: 24px;
+	left:0px;
 
 	cursor:pointer;
-	width:10%;
     border: none;
     background: none;
 	outline: none;
 	display:block;
 	margin:0;
+	padding-top:5px;
+	padding-left: 50px;
 }
 
 #stopbtn {
-	position:absolute;
-	top:400px;
+	position:relative;
+	height: 24px;
+	width: 24px;
+	left:30px;
+	top: -24px;
 
 	cursor:pointer;
-	width:10%;
     border: none;
     background: none;
 	outline: none;
 	display:block;
 	margin:0;
+	padding-top: 5px;
+	padding-left: 50px;
 }
->>>>>>> Stashed changes

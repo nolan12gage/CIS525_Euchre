@@ -10,8 +10,8 @@
 	<h1>Hello {{table.seats[0].name}}!</h1> 
 	<h2>Order up the center card or pass</h2>
 	<h3>Dealer: {{table.dealer.name}}</h2>
-	<button onclick="post('/pick1', 'p')">Pass</button>
-	<button onclick="post('/pick1', 'o')">Order Up</button>
+	<button class='gameplay' onclick="post('/pick1', 'p')">Pass</button>
+	<button class='gameplay' onclick="post('/pick1', 'o')">Order Up</button>
 	<p>
 </div>
 {% endblock %}
