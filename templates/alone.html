@@ -1,9 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
  
-
-<div class="block1">
-	<h1>Hello {{table.seats[0].name}}!</h1> 
 	<h2>Do you want to go alone?</h2>
 	<h3 id='dealer'></h3>
 	<h3 id='trump'></h3>
@@ -26,6 +23,4 @@
 	
 	<button class='gameplay' onclick="post('/alone','g')">Yes</button>
 	<button class='gameplay' onclick="post('/alone','n')">No</button>
-	<p>
-</div>
 {% endblock %}

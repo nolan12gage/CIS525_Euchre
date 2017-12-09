@@ -1,9 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
  
-
-<div class="block1">
-	
 	<script>
 		var suitTurnedDown = "{{suitTurnedDown}}";
 		var suitArray = ["s","h","d","c"];
@@ -17,8 +14,7 @@
 			suitNameArray.splice(index, 1);
 		}
 
-	</script>
-	<h1>Hello {{table.seats[0].name}}!</h1> 
+	</script> 
 	<h2 id='instruction'></h2>
 	<h3>Dealer: {{table.dealer.name}}</h3>
 	<button class='gameplay' id="button0" onclick="post('/pick2', suitArray[0])">button0</button>
@@ -33,5 +29,4 @@
 		$("button2").innerHTML = suitNameArray[2];
 	</script>
 
-</div>
 {% endblock %}

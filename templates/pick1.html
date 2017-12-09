@@ -1,17 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
  
-
-<div class="block1">
-	
 	<script>
 		
 	</script>
-	<h1>Hello {{table.seats[0].name}}!</h1> 
 	<h2>Order up the center card or pass</h2>
 	<h3>Dealer: {{table.dealer.name}}</h2>
 	<button class='gameplay' onclick="post('/pick1', 'p')">Pass</button>
 	<button class='gameplay' onclick="post('/pick1', 'o')">Order Up</button>
-	<p>
-</div>
+	
 {% endblock %}

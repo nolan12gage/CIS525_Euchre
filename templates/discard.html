@@ -1,9 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
  
-
-<div class="block1">
-	<h1>Hello {{table.seats[0].name}}!</h1> 
 	<h2>Discard a card</h2>
 	<h3 id='dealer'></h3>
 	<h3 id='trump'></h3>
@@ -25,7 +22,5 @@
 		$('trump').innerHTML = 'Trump: ' + trump;
 		$('caller').innerHTML = trumpCaller + ' called trump';
 	</script>
-	
-</div>
 
 {% endblock %}
