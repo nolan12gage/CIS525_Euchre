@@ -3,10 +3,10 @@ from validate_email import validate_email
 import mysql.connector
 import re
 
-host = 'localhost'
+host = 'euchre.czwljjbvkc3f.us-east-2.rds.amazonaws.com'
 database = 'euchre_users'
-user = 'root'
-password = 'mysql'
+user = 'euchre'
+password = 'cis525team7'
 
 def validateID(id):
   idErr = ''
