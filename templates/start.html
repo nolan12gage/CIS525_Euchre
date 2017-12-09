@@ -5,7 +5,10 @@
 {% if 'username' in session %}
 <button class='gameplay' onclick="post('/pick1', 'r');">Start Game</button>
 {% else %}
-<h2>Please log in to play!<h2>
+<script>
+	document.getElementsByTagName('main')[0].innerHTML = '<h2>Please log in to play!<h2>';
+	console.log("got here");
+</script>
 {% endif %}
 
 {% endblock %}
