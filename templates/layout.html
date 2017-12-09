@@ -20,7 +20,11 @@
 			<nav id="menu">
 		    	<ul>
 		    		<li><button id="playbtn"style="font-size:24px" class="fa">&#xf144;</button><button id="stopbtn"style="font-size:24px" class="fa">&#xf28d;</button></li>
-		    		<li><a href="login">Login</a></li>
+						{% if 'username' in session %}
+							<li><a href="logout">Log Out</a></li>
+						{% else %}
+							<li><a href="login">Log In</a></li>
+						{% endif %}
 		    		<li><a href="rules">Rules</a></li>
 		           	<li><a href="about">About</a></li>
 		    		<li><a href="{{gameReturnPoint}}">Play</a></li>
@@ -49,7 +53,7 @@
 		}
 		window.addEventListener("load", audioplay);
 	</script>
-	
+	<main/>
 	<div id="game_table"></div>
 
 	{% if showTable %}
@@ -144,6 +148,11 @@
 	{% if showTable %}
 	<button class='gameplay' onclick="post('/');">New Game</button>
 	{% endif %}
+	{% if 'username' in session %}
+	<br>
+	<p>Logged in as {{session['username']}}</p>
+	{% endif %}
+	</main>
 	<footer>
 		
 	     &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.

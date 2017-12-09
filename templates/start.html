@@ -3,10 +3,6 @@
  
 
 <div class="block1">
-	<h1>Hello {{table.seats[0].name}}!</h1> 
-	<script>
-
-	</script>
 	{% if 'username' in session %}
 	<button onclick="post('/pick1', 'r');">Start Game</button>
 	{% else %}
