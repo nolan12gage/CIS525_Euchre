@@ -6,7 +6,9 @@
 	
 	<h1>Hello {{table.seats[0].name}}!</h1> 
 	<h2>Pick a legal card</h2>
-	<h3 id='info'></h3>
+	<h3 id='dealer'></h3>
+	<h3 id='trump'></h3>
+	<h3 id='caller'></h3>
 	<script>
 		legalArray = {{legalArray}};
 		console.log(legalArray);
@@ -22,7 +24,9 @@
 		else if('{{table.seats[2].calledTrump}}' == 'True') trumpCaller = '{{table.seats[2].name}}';
 		else if('{{table.seats[3].calledTrump}}' == 'True') trumpCaller = '{{table.seats[3].name}}';
 		else trumpCaller = "error";
-		$('info').innerHTML = 'Dealer: {{table.dealer.name}} | Trump: ' + trump + ' | ' + trumpCaller + ' called trump';
+		$('dealer').innerHTML = 'Dealer: {{table.dealer.name}}';
+		$('trump').innerHTML = 'Trump: ' + trump;
+		$('caller').innerHTML = trumpCaller + ' called trump';
 
 
 

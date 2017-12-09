@@ -2,12 +2,10 @@
 {% block body %}
  
 
-<div class="block1">
-	{% if 'username' in session %}
-	<button onclick="post('/pick1', 'r');">Start Game</button>
-	{% else %}
-	<h2>Please log in to play!<h2>
-	{% endif %}
+{% if 'username' in session %}
+<button class='gameplay' onclick="post('/pick1', 'r');">Start Game</button>
+{% else %}
+<h2>Please log in to play!<h2>
+{% endif %}
 
-</div>
 {% endblock %}
