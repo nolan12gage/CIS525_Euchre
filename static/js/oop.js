@@ -101,7 +101,7 @@ Player.prototype = {
 		}
 	},
 	playCard:function(cardIndex){
-		console.log("you played: " + cardIndex);
+		//console.log("you played: " + cardIndex);
 		this.clearOnClicks();
 		post('/get', cardIndex);
 	},

@@ -54,9 +54,10 @@
 		window.addEventListener("load", audioplay);
 	</script>
 	<main/>
-	<div id="game_table"></div>
+	
 
 	{% if showTable %}
+	<div id="game_table"></div>
 	<script>
 		createTable();
 		styleTable();
@@ -141,21 +142,29 @@
 	{% endif %}
 
 
-	{% block body %}
-
-	{% endblock %}
 
 	{% if showTable %}
-	<button class='gameplay' onclick="post('/');">New Game</button>
+	<button id = 'newgame' class='gameplay' onclick="post('/');">New Game</button>
 	{% endif %}
-	{% if 'username' in session %}
-	<br>
-	<p>Logged in as {{session['username']}}</p>
-	{% endif %}
+
+	{% block main %}
+
+	{% endblock %}
+	
 	</main>
+	<div id='rightside'>
+		{% if 'username' in session %}
+		<p>Logged in as {{session['username']}}</p>
+		{% endif %}
+
+		{% block body %}
+
+		{% endblock %}
+
+	</div>
+
 	<footer>
-		
-	     &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
+		<p>&copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.</p>
 	</footer>
 	
 

@@ -1,16 +1,8 @@
-<!--<!DOCTYPE html>
-<html>
-<head>
-	<title>Euchre Login</title>
-	<meta charset="utf-8">
-	<link rel="shortcut icon" href="../static/images/Euchre.png">
-    <link rel="stylesheet" href="../static/styles/main.css">
-    
-</head>
-<body style="width: 30%">-->
+
 
 {% extends "layout.html" %}
-{% block body %}
+{% block main %}
+
 <h1>Please Sign In</h1>
 {% if loginErr %}
 <p class ="formError"> *{{loginErr}}</p>  
@@ -27,14 +19,8 @@
   
 </form> 
 <br><br>
-<!--<input type="checkbox" checked="checked"> Remember me -->
+
 <p>Don't have an account? <a href='join'>Create one</a></p>
 <p>Enjoy!</p>
+
 {% endblock %}
-<!--</body>
-
-
-<footer>
-      &copy; Copyright 2017 CIS525 Term Project, University of Michigan, Dearborn, Michigan.
-</footer>
-</html>-->
