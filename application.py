@@ -297,7 +297,7 @@ def endOfRound():
 
 
 if __name__ == "__main__":
-    application.secret_key = os.urandom(12)
+    application.secret_key = '6FljLk488f32'
     application.run(debug=True)
 	
 
