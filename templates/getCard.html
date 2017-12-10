@@ -5,6 +5,7 @@
 	<h3 id='dealer'></h3>
 	<h3 id='trump'></h3>
 	<h3 id='caller'></h3>
+	<h3 id='alone'></h3>
 	<script>
 		legalArray = {{legalArray}};
 		console.log(legalArray);
@@ -24,7 +25,10 @@
 		$('trump').innerHTML = 'Trump: ' + trump;
 		$('caller').innerHTML = trumpCaller + ' called trump';
 
-
+		if('{{table.seats[0].goingAlone}}' == 'True') $('alone').innerHTML  = '{{table.seats[0].name}} is going alone';
+		if('{{table.seats[1].goingAlone}}' == 'True') $('alone').innerHTML  = '{{table.seats[1].name}} is going alone';
+		if('{{table.seats[2].goingAlone}}' == 'True') $('alone').innerHTML  = '{{table.seats[2].name}} is going alone';
+		if('{{table.seats[3].goingAlone}}' == 'True') $('alone').innerHTML  = '{{table.seats[3].name}} is going alone';
 
 
 	</script>
