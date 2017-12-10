@@ -21,6 +21,7 @@ table = EuchreTable(p0, p1, p2, p3)
 gameReturnPoint = '/'
 
 application = Flask(__name__)
+application.secret_key = '6FljLk488f32'
 
 @application.route('/about')
 def about():
@@ -297,7 +298,7 @@ def endOfRound():
 
 
 if __name__ == "__main__":
-    application.secret_key = '6FljLk488f32'
+		#application.config['SESSION_TYPE'] = 'filesystem'
     application.run(debug=True)
 	
 
