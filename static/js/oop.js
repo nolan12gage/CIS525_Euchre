@@ -48,7 +48,7 @@ function Player(name, positionIndex, isHuman, handArray) {
 	this.isHuman = isHuman;
 	this.id = "";
 	
-	var identifiers = ["south", "east", "north", "west"];
+	var identifiers = ["south", "west", "north", "east"];
 	this.id = identifiers[this.positionIndex];
 
 	for(var i = 0; i < handArray.length; i++)
@@ -136,7 +136,7 @@ function Zone(positionIndex, zoneArray) {
 	this.card = "";
 	this.id = "";
 	
-	var identifiers = ["southplay", "eastplay", "northplay", "westplay", "center"];
+	var identifiers = ["southplay", "westplay", "northplay", "eastplay", "center"];
 	this.id = identifiers[this.positionIndex];
 
 	if(zoneArray != "")
@@ -169,7 +169,7 @@ function PointSpace(positionIndex, tricks, points, name) {
 	this.name = name;
 	this.id = "";
 	
-	var identifiers = ["southpoints", "eastpoints", "northpoints", "westpoints"];
+	var identifiers = ["southpoints", "westpoints", "northpoints", "eastpoints"];
 	this.id = identifiers[this.positionIndex];
 	
 	this.updateSpace();
